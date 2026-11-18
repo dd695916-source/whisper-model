@@ -705,17 +705,19 @@ gsap.utils.toArray('.panel').forEach(p => {
   });
 });
 
-// WHY — sticky cards fold back in 3D as the next one slides over
+// WHY — sticky stack: content flies in, the covered card recedes into depth
 const scards = gsap.utils.toArray('.scard');
 scards.forEach((card, i) => {
-  gsap.from(card, {
-    scrollTrigger: { trigger: card, start: 'top bottom', end: 'top 40%', scrub: 1.2 },
-    rotateX: 28, y: 120, scale: 0.92, transformPerspective: 1600, ease: 'power2.out',
+  // entrance animates only the inner content (never the card itself → no conflicting tweens)
+  gsap.from(card.querySelectorAll('.sc-txt > *, .sc-vis'), {
+    scrollTrigger: { trigger: card, start: 'top 90%', end: 'top 45%', scrub: 1 },
+    y: 60, opacity: 0, rotateX: isMobile ? 0 : -25, transformPerspective: 900, stagger: 0.06, ease: 'power2.out',
   });
   const next = scards[i + 1]; if (!next) return;
-  gsap.to(card, {
-    scrollTrigger: { trigger: next, start: 'top bottom', end: 'top 20%', scrub: 1.2 },
-    scale: 0.9, rotateX: isMobile ? -6 : -12, '--dim': 0.55, transformPerspective: 1600, ease: 'none',
+  // leaving: shrinks back, tilts away and darkens while the next card slides over it
+  gsap.fromTo(card, { scale: 1, rotateX: 0, '--dim': 0 }, {
+    scale: 0.92, rotateX: isMobile ? 3 : 6, '--dim': 0.5, ease: 'none', transformPerspective: 1600,
+    scrollTrigger: { trigger: next, start: 'top 85%', end: 'top 25%', scrub: 1 },
   });
 });
 

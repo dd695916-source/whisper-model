@@ -1,0 +1,131 @@
+<!doctype html>
+<html lang="ru">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex, nofollow">
+<title>NeuroLabs Admin</title>
+<link rel="icon" type="image/png" sizes="32x32" href="/favicon-32.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&family=JetBrains+Mono:wght@500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="/admin.css">
+</head>
+<body>
+
+<!-- LOGIN -->
+<section class="login" id="login">
+  <form class="login-card" id="loginForm">
+    <svg class="logo" viewBox="0 0 100 110"><polygon points="50,5 95,30 95,80 50,105 5,80 5,30"/><path d="M30 75 V35 L70 75 V35"/></svg>
+    <h1>Neuro<b>Labs</b> <span>Admin</span></h1>
+    <p>Вход в панель управления проектами</p>
+    <input type="password" id="pw" placeholder="Пароль" autocomplete="current-password" required autofocus>
+    <button class="btn" type="submit">Войти</button>
+    <div class="err" id="loginErr"></div>
+  </form>
+</section>
+
+<!-- APP -->
+<div class="app" id="app" hidden>
+  <header class="top">
+    <div class="brand">
+      <svg viewBox="0 0 100 110"><polygon points="50,5 95,30 95,80 50,105 5,80 5,30"/><path d="M30 75 V35 L70 75 V35"/></svg>
+      <span>Neuro<b>Labs</b> <i>Admin</i></span>
+    </div>
+    <div class="top-right">
+      <span class="status" id="status"></span>
+      <a class="btn ghost sm" href="/" target="_blank">Открыть сайт ↗</a>
+      <button class="btn ghost sm" id="logout">Выйти</button>
+    </div>
+  </header>
+
+  <div class="banner" id="banner" hidden></div>
+
+  <div class="layout">
+    <aside class="side">
+      <div class="side-head">
+        <h2>Проекты</h2>
+        <button class="btn sm" id="addBtn">+ Новый</button>
+      </div>
+      <ul class="plist" id="plist"></ul>
+    </aside>
+
+    <main class="editor" id="editor">
+      <div class="empty" id="empty">Выберите проект слева или создайте новый</div>
+
+      <form id="form" hidden autocomplete="off">
+        <div class="ed-head">
+          <h2 id="edTitle">Проект</h2>
+          <div class="ed-actions">
+            <a class="btn ghost sm" id="previewBtn" target="_blank">Смотреть на сайте ↗</a>
+            <button type="button" class="btn danger sm" id="delBtn">Удалить</button>
+          </div>
+        </div>
+
+        <div class="card">
+          <h3>Основное</h3>
+          <div class="grid2">
+            <label>Название<input name="title" required maxlength="80" placeholder="Gilos"></label>
+            <label>ID для ссылки <small>латиница, цифры, «-»</small><input name="id" required maxlength="40" pattern="[a-z0-9][a-z0-9-]*" placeholder="gilos"></label>
+            <label>Год<input name="year" maxlength="20" placeholder="2026"></label>
+            <label>Платформы<input name="platforms" maxlength="80" placeholder="Android · iOS"></label>
+          </div>
+          <label>Технологии <small>через запятую</small><input name="tags" placeholder="Flutter, Firebase, Maps"></label>
+          <label class="check"><input type="checkbox" name="hidden"> Скрыть с сайта (черновик)</label>
+        </div>
+
+        <div class="card">
+          <div class="card-head">
+            <h3>Тексты</h3>
+            <div class="ltabs" id="ltabs">
+              <button type="button" data-l="ru" class="on">RU</button><button type="button" data-l="en">EN</button><button type="button" data-l="uz">UZ</button>
+            </div>
+          </div>
+          <p class="hint">Заполните хотя бы один язык — если перевода нет, на сайте покажется другой язык.</p>
+          <div class="ml" data-field="category"><label>Категория<input maxlength="120" placeholder="Доставка еды · Mobile"></label></div>
+          <div class="ml" data-field="short"><label>Короткое описание <small>для главной, 1–2 предложения</small><textarea rows="2" maxlength="400"></textarea></label></div>
+          <div class="ml" data-field="description"><label>Подробное описание <small>для окна «Подробнее»</small><textarea rows="5" maxlength="3000"></textarea></label></div>
+          <div class="ml" data-field="features" data-list><label>Возможности <small>каждая с новой строки</small><textarea rows="5"></textarea></label></div>
+        </div>
+
+        <div class="card">
+          <h3>Ссылки</h3>
+          <div class="grid2">
+            <label>Google Play<input name="link_googlePlay" type="url" placeholder="https://play.google.com/store/apps/details?id=..."></label>
+            <label>App Store<input name="link_appStore" type="url" placeholder="https://apps.apple.com/app/..."></label>
+            <label>Сайт<input name="link_website" type="url" placeholder="https://..."></label>
+            <label>Telegram<input name="link_telegram" type="url" placeholder="https://t.me/..."></label>
+          </div>
+        </div>
+
+        <div class="card">
+          <h3>Скриншоты</h3>
+          <p class="hint">Вертикальные скриншоты телефона (PNG, JPG, WEBP). Первый — на главной, все — в окне «Подробнее». Перетащите файлы сюда.</p>
+          <div class="shots" id="shots"></div>
+          <label class="drop" id="drop">
+            <input type="file" id="file" accept="image/png,image/jpeg,image/webp" multiple hidden>
+            <span>＋ Загрузить скриншоты</span>
+          </label>
+          <label class="mock">Если скриншотов нет — показывать экран:
+            <select name="mock">
+              <option value="delivery">Доставка (светлый)</option>
+              <option value="community">Сообщество / чат</option>
+              <option value="ai">AI-ассистент</option>
+            </select>
+          </label>
+        </div>
+      </form>
+    </main>
+  </div>
+
+  <div class="savebar" id="savebar">
+    <span id="dirtyMsg">Все изменения сохранены</span>
+    <button class="btn" id="saveBtn">Сохранить на сайт</button>
+  </div>
+</div>
+
+<div class="toast" id="toast"></div>
+
+<script type="module" src="/admin.js"></script>
+</body>
+</html>

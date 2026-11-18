@@ -1,46 +1,51 @@
-# NeuroLabs — сайт
+# NeuroLabs — сайт + админка
 
-HTML + CSS + JavaScript, сборка через Vite. Библиотеки: Three.js, GSAP (ScrollTrigger), Lenis.
+Сайт: HTML + CSS + JavaScript, сборка через Vite (Three.js, GSAP, Lenis).
+Админка и API: Cloudflare Pages Functions, проекты хранятся в KV, картинки в R2.
 
 ## Запуск на Mac
-Нужен Node.js 18+ (`brew install node` или https://nodejs.org).
+Нужен Node.js 18 или новее (`brew install node`).
 
 ```bash
 cd neurolabs-site
-npm install      # один раз
-npm run dev      # запустит сайт и откроет его в браузере (http://localhost:5173)
+npm install
+npm run dev
 ```
 
-## Что внутри
-- 3D-частицы (Three.js) меняют форму по секциям: мозг → волна → галактика → ДНК → логотип; разлетаются от курсора.
-- Анимации на скролле (GSAP ScrollTrigger), плавный скролл (Lenis).
-- Языки EN / RU / UZ, мобильное меню, полоса прогресса.
-- SEO: Open Graph, favicon, robots.txt, sitemap.xml, JSON-LD.
-- Без WebGL сайт тоже работает (просто без 3D).
+- Сайт: http://localhost:5173
+- Админка: http://localhost:5173/admin
 
-## Как добавить или изменить проект
-Все проекты хранятся в файле **`projects.js`**. Подробная инструкция написана прямо в нём, в комментарии вверху.
+Пароль для локальной админки лежит в файле `.dev.vars`:
+```
+ADMIN_PASSWORD=neurolabs-admin
+```
+Если файла нет, создайте его с этой строкой. Локальные проекты и картинки хранятся в папке `.wrangler/`. Это имитация Cloudflare, на настоящий сайт они не попадают.
 
-1. Скопируйте блок проекта `{ ... }` и поменяйте поля: название, описание, возможности, технологии.
-2. Ссылки впишите в `links`: `googlePlay`, `appStore`, `website`, `telegram`. Пустые ссылки на сайте не показываются.
-3. Скриншоты положите в `public/projects/<id>/` и перечислите в `screenshots: ['/projects/<id>/1.png']`.
-4. У каждого проекта есть своя ссылка: `https://neurolabs.uz/#project/<id>`.
+## Админка
+В админке можно добавлять, редактировать, скрывать и удалять проекты, менять их порядок, заполнять тексты на RU / EN / UZ, вставлять ссылки (Google Play, App Store, сайт, Telegram) и загружать скриншоты перетаскиванием. Сохраняется кнопкой «Сохранить на сайт» или сочетанием ⌘S.
+
+Пока в админке ничего не сохранено, сайт показывает проекты из `projects.js`. После первого сохранения сайт берёт проекты из админки.
+
+У каждого проекта есть своя ссылка: `https://neurolabs.uz/#project/<id>`.
+
+## Публикация на Cloudflare (neurolabs.uz)
+1. **Хранилища** в панели Cloudflare:
+   - Storage & Databases → **KV** → Create → имя `neurolabs-projects`
+   - **R2** → Create bucket → имя `neurolabs-media`
+2. **Проект Pages:** Workers & Pages → Create → Pages → **Connect to Git** → выберите репозиторий:
+   - Root directory: `neurolabs-site`
+   - Build command: `npm run build`
+   - Build output directory: `dist`
+3. В проекте Pages откройте **Settings → Bindings** и добавьте:
+   - KV namespace: имя переменной `PROJECTS_KV` → `neurolabs-projects`
+   - R2 bucket: имя переменной `MEDIA` → `neurolabs-media`
+4. **Settings → Variables and Secrets** → Add → тип *Secret*, имя `ADMIN_PASSWORD`, значение — придумайте надёжный пароль.
+5. **Deployments** → Retry deployment, чтобы привязки подхватились.
+6. **Custom domains** → добавьте `neurolabs.uz` и `www.neurolabs.uz`.
+
+Готово: админка будет по адресу **https://neurolabs.uz/admin**.
+
+Вместо подключения к Git можно публиковать из терминала: `npx wrangler login`, затем `npm run deploy`. Шаги 3–6 всё равно делаются в панели.
 
 ## Контакты
 В начале `main.js` замените значения в `CONFIG`: Telegram, почту и телефон.
-
-## Сборка для публикации
-```bash
-npm run build    # готовый сайт появится в папке dist/
-npm run preview  # посмотреть собранную версию
-```
-
-## Деплой на Cloudflare Pages (neurolabs.uz)
-**Вариант А, вручную:** `npm run build`, затем Cloudflare → Workers & Pages → Create → Pages → Upload assets → перетащите папку `dist`.
-
-**Вариант Б, через GitHub (автодеплой):** Create → Pages → Connect to Git → выберите репозиторий и укажите:
-- Build command: `npm run build`
-- Build output directory: `dist`
-- Root directory: `neurolabs-site`
-
-Затем Custom domains → добавьте `neurolabs.uz` и `www.neurolabs.uz`.

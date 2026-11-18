@@ -420,7 +420,7 @@ document.querySelectorAll('.hero-title .split').forEach(splitChars);
 // HERO intro (played after loader)
 function heroIntro() {
   const tl = gsap.timeline();
-  tl.from('.hero-title .ch', { rotateX: -100, y: 140, z: -200, opacity: 0, duration: 1.4, ease: 'expo.out', stagger: 0.05 })
+  tl.from('.hero-title .ch', { yPercent: 115, rotate: 8, opacity: 0, duration: 1.3, ease: 'expo.out', stagger: 0.045 })
     .from('.hero .reveal-up', { y: 40, opacity: 0, duration: 1, ease: 'power3.out', stagger: 0.12 }, '-=1.0')
     .from('.nav', { y: -40, opacity: 0, duration: .8, ease: 'power3.out' }, '-=0.9')
     .from('.scroll-hint', { opacity: 0, duration: .8 }, '-=0.4');
@@ -476,7 +476,15 @@ gsap.utils.toArray('.sec-title').forEach(t => gsap.from(t, {
    PROJECTS — rendered from projects.js
    ============================================================ */
 let curLang = 'en';
-const tr = v => (v == null ? '' : typeof v === 'string' ? v : Array.isArray(v) ? v : (v[curLang] ?? v.en ?? Object.values(v)[0]));
+// picks the current language, falls back to any filled-in language
+const tr = v => {
+  if (v == null) return '';
+  if (typeof v === 'string' || Array.isArray(v)) return v;
+  const order = [curLang, 'en', 'ru', 'uz'];
+  for (const l of order) { const x = v[l]; if (Array.isArray(x) ? x.length : x) return x; }
+  return '';
+};
+const safeHref = u => (/^(https?:\/\/|tg:\/\/)/i.test(String(u).trim()) ? String(u).trim() : '');
 const esc = v => String(v).replace(/[&<>"']/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]));
 const LINK_ORDER = ['googlePlay', 'appStore', 'website', 'telegram'];
 const ICONS = {
@@ -486,8 +494,8 @@ const ICONS = {
   telegram: '<svg viewBox="0 0 24 24"><path d="M21 4L3 11l6 2 2 6 3-4 5 4z"/><path d="M9 13l9-7"/></svg>',
 };
 function linksHTML(p, cls) {
-  return LINK_ORDER.filter(k => p.links && p.links[k]).map(k =>
-    `<a class="${cls} link-${k}" href="${esc(p.links[k])}" target="_blank" rel="noopener">${ICONS[k]}<span data-i18n="link.${k}">${esc(tr(T[curLang]['link.' + k]))}</span></a>`).join('');
+  return LINK_ORDER.filter(k => p.links && safeHref(p.links[k] || '')).map(k =>
+    `<a class="${cls} link-${k}" href="${esc(safeHref(p.links[k]))}" target="_blank" rel="noopener">${ICONS[k]}<span data-i18n="link.${k}">${esc(tr(T[curLang]['link.' + k]))}</span></a>`).join('');
 }
 function screenHTML(p, i = 0) {
   if (p.screenshots && p.screenshots.length) {
@@ -496,8 +504,19 @@ function screenHTML(p, i = 0) {
   const tpl = document.getElementById('mock-' + (p.mock || 'delivery'));
   return tpl ? tpl.innerHTML : '<div class="scr dark"></div>';
 }
+// projects come from the admin panel (Cloudflare KV); projects.js is the fallback
+async function loadProjects() {
+  try {
+    const ctl = new AbortController(); const to = setTimeout(() => ctl.abort(), 2500);
+    const r = await fetch('/api/projects', { signal: ctl.signal, cache: 'no-store' });
+    clearTimeout(to);
+    if (r.ok) { const d = await r.json(); if (Array.isArray(d.projects)) return d.projects; }
+  } catch (e) { /* API not available — use projects.js */ }
+  return PROJECTS;
+}
+let DATA = (await loadProjects()).filter(p => !p.hidden);
 function renderPanels() {
-  const html = PROJECTS.map(p => `
+  const html = DATA.map(p => `
     <div class="panel" data-pid="${esc(p.id)}">
       <div class="panel-text">
         <span class="p-cat" data-pf="category"></span>
@@ -515,10 +534,10 @@ function renderPanels() {
 }
 function updateProjectTexts() {
   document.querySelectorAll('.panel[data-pid]').forEach(el => {
-    const p = PROJECTS.find(x => x.id === el.dataset.pid); if (!p) return;
+    const p = DATA.find(x => x.id === el.dataset.pid); if (!p) return;
     el.querySelectorAll('[data-pf]').forEach(f => { f.textContent = tr(p[f.dataset.pf]); });
   });
-  if (openId) fillModal(PROJECTS.find(x => x.id === openId));
+  if (openId) fillModal(DATA.find(x => x.id === openId));
 }
 
 // modal
@@ -542,7 +561,7 @@ function fillModal(p) {
   pm.querySelectorAll('[data-i18n]').forEach(el => { const v = T[curLang][el.dataset.i18n]; if (v) el.textContent = v; });
 }
 function openProject(id, updateUrl = true) {
-  const p = PROJECTS.find(x => x.id === id); if (!p) return;
+  const p = DATA.find(x => x.id === id); if (!p) return;
   openId = id; fillModal(p);
   pm.classList.add('open'); pm.setAttribute('aria-hidden', 'false');
   document.body.classList.add('pm-open');

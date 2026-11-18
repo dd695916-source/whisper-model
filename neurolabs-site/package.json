@@ -4,12 +4,17 @@
   "version": "1.0.0",
   "type": "module",
   "scripts": {
-    "dev": "vite --open",
+    "dev": "concurrently -k -n api,web -c yellow,green \"npm:dev:api\" \"npm:dev:web\"",
+    "dev:web": "vite --open",
+    "dev:api": "wrangler pages dev public --port 8788 --kv PROJECTS_KV --r2 MEDIA --compatibility-date 2024-11-01 --persist-to .wrangler/state --log-level warn",
     "build": "vite build",
-    "preview": "vite preview --open"
+    "preview": "vite build && wrangler pages dev dist --port 8788 --kv PROJECTS_KV --r2 MEDIA --compatibility-date 2024-11-01 --persist-to .wrangler/state",
+    "deploy": "vite build && wrangler pages deploy dist --project-name neurolabs"
   },
   "devDependencies": {
-    "vite": "^5.4.11"
+    "concurrently": "9.1.2",
+    "vite": "^5.4.11",
+    "wrangler": "3.114.17"
   },
   "dependencies": {
     "gsap": "3.12.5",

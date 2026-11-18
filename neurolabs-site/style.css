@@ -84,8 +84,12 @@ main,.foot{position:relative;z-index:3}
 @keyframes pulse{50%{opacity:.35}}
 .hero-title{font-size:clamp(64px,15vw,220px);font-weight:900;letter-spacing:-.055em;line-height:.9;margin:28px 0 26px;
   transform-style:preserve-3d;text-shadow:0 20px 80px rgba(0,0,0,.4)}
-.hero-title .split{display:inline-block;transform-style:preserve-3d}
-.hero-title .ch{display:inline-block;transform-origin:50% 100% -40px;will-change:transform}
+.hero-title{white-space:nowrap}
+.hero-title .split{display:inline-block}
+/* the gradient lives on each letter; the wrapper must not paint its own clipped background (Chrome ghosting) */
+.hero-title .split.gold{background:none;-webkit-background-clip:border-box;background-clip:border-box;color:inherit}
+.hero-title .split{overflow:hidden;padding:0 .02em .12em;margin-bottom:-.12em;vertical-align:top}
+.hero-title .ch{display:inline-block;transform-origin:50% 100%;will-change:transform}
 .hero-title .gold .ch{background:linear-gradient(180deg,var(--gold3),var(--gold) 55%,var(--gold2));-webkit-background-clip:text;background-clip:text;color:transparent}
 .hero-sub,.panel p,.step p,.mani-text{text-shadow:0 2px 18px rgba(2,8,7,.95),0 0 40px rgba(2,8,7,.8)}
 .hero-sub{font-size:clamp(17px,1.6vw,22px);line-height:1.55;color:#cfe0da;max-width:640px;margin:0 auto}

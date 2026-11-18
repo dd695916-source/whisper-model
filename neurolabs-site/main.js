@@ -43,6 +43,18 @@ const T = {
     'proc.4t': 'Launch & grow', 'proc.4d': 'App Store, Google Play, servers — and support as your product grows.',
     'work.more': 'Details', 'link.googlePlay': 'Google Play', 'link.appStore': 'App Store', 'link.website': 'Website', 'link.telegram': 'Telegram',
     'pm.features': 'Key features', 'pm.stack': 'Tech stack', 'pm.year': 'Year', 'pm.platforms': 'Platforms',
+    'why.title': 'Why NeuroLabs',
+    'why.1t': 'Launch fast', 'why.1d': 'An MVP in weeks, not months. We ship in short sprints so you see real progress every week.',
+    'why.2t': 'Design that sells', 'why.2d': 'Every screen is designed to convert: clear, beautiful and easy — users fall in love from the first tap.',
+    'why.3t': 'AI inside', 'why.3d': 'We build artificial intelligence into products: smart search, assistants, speech and image recognition.',
+    'why.4t': 'Yours forever', 'why.4d': 'Full source code, publishing to App Store & Google Play, and support after launch — your product stays in good hands.',
+    'ai.title': 'Meet Neuro AI', 'ai.badge': 'demo',
+    'ai.sub': "Our AI assistant understands what your client wants and answers instantly — in Uzbek, Russian or English. Here's how it talks.",
+    'ai.u1': 'I want a food delivery app for my restaurant 🍕',
+    'ai.a1': 'Great idea! I suggest: <b>iOS + Android app</b>, online payments, live courier tracking and a <b>dashboard for your kitchen</b>.',
+    'ai.u2': 'Can it speak Uzbek too?',
+    'ai.a2': 'Of course! The app and the assistant work in <b>Uzbek, Russian and English</b>. Shall we start with a clickable prototype? 🚀',
+    'tech.title': 'Our tech universe', 'tech.hint': 'Drag to spin',
     'ct.eyebrow': "Let's build something great", 'ct.t1': 'Got an idea?', 'ct.t2': "Let's make it real.",
   },
   ru: {
@@ -71,6 +83,18 @@ const T = {
     'proc.4t': 'Запуск и рост', 'proc.4d': 'App Store, Google Play, серверы — и поддержка по мере роста продукта.',
     'work.more': 'Подробнее', 'link.googlePlay': 'Google Play', 'link.appStore': 'App Store', 'link.website': 'Сайт', 'link.telegram': 'Telegram',
     'pm.features': 'Возможности', 'pm.stack': 'Технологии', 'pm.year': 'Год', 'pm.platforms': 'Платформы',
+    'why.title': 'Почему NeuroLabs',
+    'why.1t': 'Быстрый запуск', 'why.1d': 'MVP за недели, а не месяцы. Работаем короткими спринтами — вы видите реальный прогресс каждую неделю.',
+    'why.2t': 'Дизайн, который продаёт', 'why.2d': 'Каждый экран продуман для конверсии: понятно, красиво и легко — пользователи влюбляются с первого касания.',
+    'why.3t': 'AI внутри', 'why.3d': 'Встраиваем искусственный интеллект в продукты: умный поиск, ассистенты, распознавание речи и изображений.',
+    'why.4t': 'Навсегда ваше', 'why.4d': 'Полный исходный код, публикация в App Store и Google Play и поддержка после запуска — продукт в надёжных руках.',
+    'ai.title': 'Знакомьтесь, Neuro AI', 'ai.badge': 'демо',
+    'ai.sub': 'Наш AI-ассистент понимает, чего хочет клиент, и отвечает мгновенно — на узбекском, русском или английском. Вот как он общается.',
+    'ai.u1': 'Хочу приложение доставки для своего ресторана 🍕',
+    'ai.a1': 'Отличная идея! Предлагаю: <b>приложение для iOS и Android</b>, онлайн-оплата, отслеживание курьера и <b>панель для кухни</b>.',
+    'ai.u2': 'А на узбекском оно будет?',
+    'ai.a2': 'Конечно! Приложение и ассистент работают на <b>узбекском, русском и английском</b>. Начнём с кликабельного прототипа? 🚀',
+    'tech.title': 'Наша вселенная технологий', 'tech.hint': 'Покрутите сферу',
     'ct.eyebrow': 'Давайте создадим что-то крутое', 'ct.t1': 'Есть идея?', 'ct.t2': 'Воплотим её.',
   },
   uz: {
@@ -99,6 +123,18 @@ const T = {
     'proc.4t': "Ishga tushirish va o'sish", 'proc.4d': "App Store, Google Play, serverlar — va mahsulot o'sishida qo'llab-quvvatlash.",
     'work.more': 'Batafsil', 'link.googlePlay': 'Google Play', 'link.appStore': 'App Store', 'link.website': 'Veb-sayt', 'link.telegram': 'Telegram',
     'pm.features': 'Imkoniyatlar', 'pm.stack': 'Texnologiyalar', 'pm.year': 'Yil', 'pm.platforms': 'Platformalar',
+    'why.title': 'Nega NeuroLabs',
+    'why.1t': 'Tez ishga tushirish', 'why.1d': "MVP oylar emas, haftalar ichida. Qisqa sprintlarda ishlaymiz — har hafta real natijani ko'rasiz.",
+    'why.2t': 'Sotadigan dizayn', 'why.2d': "Har bir ekran konversiya uchun o'ylangan: tushunarli, chiroyli va oson — foydalanuvchilar birinchi bosishdanoq sevib qoladi.",
+    'why.3t': 'Ichida AI', 'why.3d': "Mahsulotlarga sun'iy intellekt qo'shamiz: aqlli qidiruv, assistentlar, nutq va tasvirni tanish.",
+    'why.4t': 'Butunlay sizniki', 'why.4d': "To'liq manba kodi, App Store va Google Play'ga joylash hamda ishga tushirilgandan keyin qo'llab-quvvatlash.",
+    'ai.title': 'Tanishing, Neuro AI', 'ai.badge': 'demo',
+    'ai.sub': "AI assistentimiz mijoz nimani xohlashini tushunadi va darhol javob beradi — o'zbek, rus yoki ingliz tilida. Mana u qanday gaplashadi.",
+    'ai.u1': 'Restoranim uchun yetkazib berish ilovasi kerak 🍕',
+    'ai.a1': "Zo'r g'oya! Taklifim: <b>iOS va Android ilova</b>, onlayn to'lov, kuryerni kuzatish va <b>oshxona uchun panel</b>.",
+    'ai.u2': "O'zbek tilida ham bo'ladimi?",
+    'ai.a2': "Albatta! Ilova va assistent <b>o'zbek, rus va ingliz</b> tillarida ishlaydi. Bosiladigan prototipdan boshlaymizmi? 🚀",
+    'tech.title': 'Texnologiyalar olamimiz', 'tech.hint': 'Sferani aylantiring',
     'ct.eyebrow': 'Keling, zo‘r narsa yaratamiz', 'ct.t1': "G'oyangiz bormi?", 'ct.t2': 'Uni hayotga tatbiq etamiz.',
   },
 };
@@ -203,9 +239,34 @@ function shapeLogo() {
   }
   return out;
 }
-const shapes = [shapeBrain(), shapeWave(0), shapeGalaxy(), shapeHelix(), shapeLogo()];
+function shapeLattice() { // 3D crystal lattice for "Why"
+  const out = new Float32Array(N * 3);
+  const g = 9, step = 0.75, off = (g - 1) * step / 2;
+  for (let i = 0; i < N; i++) {
+    const node = i % (g * g * g);
+    const x = node % g, y = Math.floor(node / g) % g, z = Math.floor(node / (g * g));
+    const edge = Math.random() < 0.55; // spread some points along the edges
+    const t = Math.random() * step, axis = i % 3;
+    out.set([
+      x * step - off + (edge && axis === 0 ? t : 0) + gauss() * 0.02,
+      y * step - off + (edge && axis === 1 ? t : 0) + gauss() * 0.02,
+      z * step - off + (edge && axis === 2 ? t : 0) + gauss() * 0.02,
+    ], i * 3);
+  }
+  return out;
+}
+function shapeTorus() { // glowing ring for the AI demo
+  const out = new Float32Array(N * 3);
+  for (let i = 0; i < N; i++) {
+    const u = Math.random() * Math.PI * 2, v = Math.random() * Math.PI * 2;
+    const R = 3.2, r = 0.55 + gauss() * 0.12;
+    out.set([(R + r * Math.cos(v)) * Math.cos(u), r * Math.sin(v), (R + r * Math.cos(v)) * Math.sin(u)], i * 3);
+  }
+  return out;
+}
+const shapes = [shapeBrain(), shapeWave(0), shapeGalaxy(), shapeHelix(), shapeLogo(), shapeLattice(), shapeTorus()];
 const shapeTransforms = [ // per-shape group rotation offsets
-  { rx: 0, ry: 0, s: 1 }, { rx: 0.25, ry: 0, s: 1 }, { rx: 0.9, ry: 0, s: 1 }, { rx: 0.15, ry: 0, s: 0.95 }, { rx: 0, ry: 0, s: 1 },
+  { rx: 0, ry: 0, s: 1 }, { rx: 0.25, ry: 0, s: 1 }, { rx: 0.9, ry: 0, s: 1 }, { rx: 0.15, ry: 0, s: 0.95 }, { rx: 0, ry: 0, s: 1 }, { rx: 0.5, ry: 0, s: 1 }, { rx: 1.15, ry: 0, s: 1 },
 ];
 
 const geo = new THREE.BufferGeometry();
@@ -218,7 +279,7 @@ for (let i = 0; i < N; i++) {
   const c = Math.random() < 0.1 ? palette[5] : palette[Math.floor(Math.random() * 5)];
   col.set([c.r, c.g, c.b], i * 3);
   size[i] = Math.random() < 0.04 ? rnd(2.2, 3.5) : rnd(0.6, 1.4);
-  speed[i] = rnd(0.025, 0.075);
+  speed[i] = rnd(0.018, 0.05);
   seed[i] = Math.random() * 100;
 }
 geo.setAttribute('position', new THREE.BufferAttribute(pos, 3));
@@ -232,23 +293,24 @@ const mat = new THREE.ShaderMaterial({
   vertexShader: `
     attribute float aSize; attribute float aSeed;
     uniform float uTime; uniform float uPR; uniform float uBoost;
-    varying vec3 vColor; varying float vTw;
+    varying vec3 vColor; varying float vTw; varying float vFog;
     void main(){
       vec4 mv = modelViewMatrix * vec4(position,1.0);
       float tw = 0.65 + 0.35*sin(uTime*2.0 + aSeed);
       vTw = tw;
+      vFog = clamp(1.35 - (-mv.z) / 16.0, 0.18, 1.0); // farther = dimmer → depth
       gl_PointSize = aSize * (1.0 + uBoost) * uPR * (55.0 / -mv.z) * (0.8 + tw*0.4);
       gl_Position = projectionMatrix * mv;
       vColor = color;
     }`,
   fragmentShader: `
-    varying vec3 vColor; varying float vTw; uniform float uDim;
+    varying vec3 vColor; varying float vTw; varying float vFog; uniform float uDim;
     void main(){
       float d = length(gl_PointCoord - 0.5);
       if(d > 0.5) discard;
       float core = smoothstep(0.5, 0.0, d);
       float a = pow(core, 1.8);
-      gl_FragColor = vec4(vColor * (0.7 + vTw*0.6), a * uDim);
+      gl_FragColor = vec4(vColor * (0.7 + vTw*0.6), a * uDim * vFog);
     }`,
 });
 const points = new THREE.Points(geo, mat);
@@ -271,10 +333,12 @@ const lineGeo = new THREE.BufferGeometry();
 const lines = new THREE.LineSegments(lineGeo, new THREE.LineBasicMaterial({ color: 0xe9c46a, transparent: true, opacity: 0, blending: THREE.AdditiveBlending, depthWrite: false }));
 group.add(lines);
 
+let camBase = 9, heroP = 0;
 function resize() {
   renderer && renderer.setSize(innerWidth, innerHeight, false);
   camera.aspect = innerWidth / innerHeight;
-  camera.position.z = camera.aspect < 0.8 ? 14 : 9;
+  camBase = camera.aspect < 0.8 ? 14 : 9;
+  camera.position.z = camBase;
   camera.updateProjectionMatrix();
 }
 addEventListener('resize', resize); resize();
@@ -342,9 +406,15 @@ function tick() {
   if (shapeIdx === 4) group.rotation.y = Math.sin(t * 0.4) * 0.35 + smx * 0.6;
   mat.uniforms.uBoost.value += (Math.min(Math.abs(velocity) * 0.02, 0.8) - mat.uniforms.uBoost.value) * 0.1;
   lines.material.opacity += ((shapeIdx === 0 && started ? 0.12 : 0) - lines.material.opacity) * 0.05;
-  const dimT = [0.75, 0.9, 0.42, 0.7, camera.aspect < 0.8 ? 0.3 : 0.4][shapeIdx];
+  const dimT = [0.75, 0.9, 0.42, 0.7, camera.aspect < 0.8 ? 0.3 : 0.4, 0.45, 0.6][shapeIdx];
   mat.uniforms.uDim.value += (dimT - mat.uniforms.uDim.value) * 0.05;
   velocity *= 0.92;
+  // camera: fly into the brain while leaving the hero + gentle orbit with the mouse
+  const flyZ = shapeIdx === 0 ? camBase * (1 - 0.62 * heroP) : camBase;
+  camera.position.z += (flyZ - camera.position.z) * 0.06;
+  camera.position.x += (smx * 1.6 - camera.position.x) * 0.04;
+  camera.position.y += (-smy * 1.1 - camera.position.y) * 0.04;
+  camera.lookAt(0, group.position.y * 0.3, 0);
   // contact: shrink the logo and lift it above the headline
   const halfH = Math.tan(THREE.MathUtils.degToRad(camera.fov / 2)) * camera.position.z;
   let gy = 0, gs = 1;
@@ -365,7 +435,7 @@ requestAnimationFrame(tick);
 gsap.registerPlugin(ScrollTrigger);
 let lenis = null;
 if (!reduceMotion) {
-  lenis = new Lenis({ lerp: 0.09, smoothWheel: true });
+  lenis = new Lenis({ lerp: 0.07, smoothWheel: true, wheelMultiplier: 0.95, touchMultiplier: 1.4 });
   lenis.on('scroll', e => { ScrollTrigger.update(); velocity = e.velocity; });
   gsap.ticker.add(time => lenis.raf(time * 1000));
   gsap.ticker.lagSmoothing(0);
@@ -425,9 +495,10 @@ function heroIntro() {
     .from('.nav', { y: -40, opacity: 0, duration: .8, ease: 'power3.out' }, '-=0.9')
     .from('.scroll-hint', { opacity: 0, duration: .8 }, '-=0.4');
 }
+ScrollTrigger.create({ trigger: '.hero', start: 'top top', end: 'bottom top', onUpdate: st => { heroP = st.progress; } });
 // hero scroll-out: 3D push into depth
 gsap.to('.hero-inner', {
-  scrollTrigger: { trigger: '.hero', start: 'top top', end: 'bottom top', scrub: true },
+  scrollTrigger: { trigger: '.hero', start: 'top top', end: 'bottom top', scrub: 1 },
   z: 300, rotateX: 18, opacity: 0, filter: 'blur(8px)', ease: 'none', transformPerspective: 900,
 });
 
@@ -617,6 +688,103 @@ gsap.utils.toArray('.panel').forEach(p => {
   });
 });
 
+// WHY — sticky cards fold back in 3D as the next one slides over
+const scards = gsap.utils.toArray('.scard');
+scards.forEach((card, i) => {
+  gsap.from(card, {
+    scrollTrigger: { trigger: card, start: 'top bottom', end: 'top 40%', scrub: 1.2 },
+    rotateX: 28, y: 120, scale: 0.92, transformPerspective: 1600, ease: 'power2.out',
+  });
+  const next = scards[i + 1]; if (!next) return;
+  gsap.to(card, {
+    scrollTrigger: { trigger: next, start: 'top bottom', end: 'top 20%', scrub: 1.2 },
+    scale: 0.9, rotateX: -12, filter: 'brightness(.45)', transformPerspective: 1600, ease: 'none',
+  });
+});
+
+// 3D tilt on hover (AI window)
+if (matchMedia('(hover:hover)').matches) {
+  document.querySelectorAll('.tilt3d').forEach(el => {
+    el.addEventListener('pointermove', e => {
+      const r = el.getBoundingClientRect();
+      gsap.to(el, { rotateY: ((e.clientX - r.left) / r.width - 0.5) * 14, rotateX: (0.5 - (e.clientY - r.top) / r.height) * 12, duration: 0.6, ease: 'power3.out', transformPerspective: 1200 });
+    });
+    el.addEventListener('pointerleave', () => gsap.to(el, { rotateX: 0, rotateY: 0, duration: 1, ease: 'elastic.out(1,0.5)' }));
+  });
+}
+gsap.from('.ai-win', {
+  scrollTrigger: { trigger: '.aidemo', start: 'top 85%', end: 'top 30%', scrub: 1.2 },
+  rotateY: -35, rotateX: 15, x: 120, z: -300, opacity: 0, transformPerspective: 1400,
+});
+
+// AI demo — scripted chat that types itself
+const aiBody = document.getElementById('aiBody'), aiInput = document.getElementById('aiInput');
+let aiRun = 0;
+const wait = ms => new Promise(r => setTimeout(r, ms));
+function aiAdd(cls, html) {
+  const m = document.createElement('div'); m.className = 'ai-msg ' + cls; m.innerHTML = html;
+  aiBody.appendChild(m); requestAnimationFrame(() => m.classList.add('show'));
+  while (aiBody.children.length > 6) aiBody.firstChild.remove();
+  return m;
+}
+async function aiPlay() {
+  const run = ++aiRun, L = T[curLang];
+  aiBody.innerHTML = ''; aiInput.textContent = '';
+  for (const [u, a] of [['ai.u1', 'ai.a1'], ['ai.u2', 'ai.a2']]) {
+    for (const ch of L[u]) { if (run !== aiRun) return; aiInput.textContent += ch; await wait(38); }
+    await wait(350); if (run !== aiRun) return;
+    aiInput.textContent = ''; aiAdd('u', L[u]);
+    await wait(500);
+    const typing = aiAdd('a', '<span class="ai-typing"><i></i><i></i><i></i></span>'); typing.style.padding = '0';
+    await wait(1300); if (run !== aiRun) return;
+    typing.remove();
+    const msg = aiAdd('a', ''); const full = L[a];
+    // reveal word by word, keeping <b> tags intact
+    const parts = full.split(/(<b>.*?<\/b>|\s+)/).filter(Boolean);
+    for (const p of parts) { if (run !== aiRun) return; msg.innerHTML += p; await wait(p.trim() ? 55 : 0); }
+    await wait(900);
+  }
+}
+ScrollTrigger.create({ trigger: '.aidemo', start: 'top 60%', onEnter: () => aiPlay(), onEnterBack: () => { if (!aiBody.children.length) aiPlay(); } });
+
+// TECH SPHERE — draggable 3D cloud of technologies
+(() => {
+  const sphere = document.getElementById('sphere'); if (!sphere) return;
+  const TECH = ['Flutter', 'Kotlin', 'Swift', 'React', 'Next.js', 'Node.js', 'Python', 'TypeScript', 'Firebase', 'PostgreSQL', 'Cloudflare', 'Docker',
+    'OpenAI', 'Whisper', 'LLM', 'Three.js', 'Figma', 'WebRTC', 'Redis', 'GraphQL', 'Telegram API', 'Stripe', 'Maps', 'Vision AI', 'iOS', 'Android'];
+  const els = TECH.map(t => { const e = document.createElement('span'); e.textContent = t; sphere.appendChild(e); return e; });
+  const n = TECH.length, golden = Math.PI * (3 - Math.sqrt(5));
+  const pts = TECH.map((_, i) => { const y = 1 - (i / (n - 1)) * 2, r = Math.sqrt(1 - y * y), a = golden * i; return [Math.cos(a) * r, y, Math.sin(a) * r]; });
+  let ax = 0.3, ay = 0, vx = 0.0016, vy = 0.004, drag = null, visible = false;
+  new IntersectionObserver(([e]) => { visible = e.isIntersecting; }).observe(sphere);
+  sphere.addEventListener('pointerdown', e => { drag = { x: e.clientX, y: e.clientY }; sphere.setPointerCapture(e.pointerId); });
+  sphere.addEventListener('pointermove', e => {
+    if (!drag) return;
+    vy = (e.clientX - drag.x) * 0.0009; vx = -(e.clientY - drag.y) * 0.0009;
+    drag = { x: e.clientX, y: e.clientY };
+  });
+  const end = () => { drag = null; };
+  sphere.addEventListener('pointerup', end); sphere.addEventListener('pointercancel', end);
+  function loop() {
+    requestAnimationFrame(loop);
+    if (!visible) return;
+    if (!drag) { vx += (0.0012 - vx) * 0.02; vy += (0.0035 - vy) * 0.02; }
+    ax += vx + velocity * 0.00004; ay += vy;
+    const R = sphere.clientWidth * 0.42, cx = Math.cos(ax), sx = Math.sin(ax), cy = Math.cos(ay), sy = Math.sin(ay);
+    for (let i = 0; i < n; i++) {
+      let [x, y, z] = pts[i];
+      let x1 = x * cy + z * sy, z1 = -x * sy + z * cy;      // rotate Y
+      let y2 = y * cx - z1 * sx, z2 = y * sx + z1 * cx;      // rotate X
+      const k = (z2 + 2) / 3;                                // 0.33 (back) … 1 (front)
+      els[i].style.transform = `translate(-50%,-50%) translate3d(${(x1 * R).toFixed(1)}px,${(y2 * R).toFixed(1)}px,0) scale(${(0.55 + k * 0.6).toFixed(3)})`;
+      els[i].style.opacity = (0.18 + k * 0.82).toFixed(2);
+      els[i].style.zIndex = Math.round(k * 100);
+      els[i].style.filter = k < 0.55 ? `blur(${((0.55 - k) * 4).toFixed(1)}px)` : 'none';
+    }
+  }
+  loop();
+})();
+
 // PROCESS — glowing line + steps
 gsap.to('.steps-line i', { scaleY: 1, ease: 'none', scrollTrigger: { trigger: '.steps', start: 'top 60%', end: 'bottom 60%', scrub: true } });
 gsap.utils.toArray('.step').forEach(s => gsap.from(s, {
@@ -637,7 +805,7 @@ gsap.from('.contact-btns > *', {
 /* contacts */
 const btns = document.getElementById('contactBtns');
 btns.innerHTML = [
-  CONFIG.telegram && `<a class="btn magnetic" href="https://t.me/${CONFIG.telegram}" target="_blank" rel="noopener">✈ @${CONFIG.telegram}</a>`,
+  CONFIG.telegram && `<a class="btn magnetic" href="https://t.me/${CONFIG.telegram}" target="_blank" rel="noopener">✈ Telegram</a>`,
   CONFIG.phone && `<a class="btn btn-ghost magnetic" href="tel:${CONFIG.phone.replace(/[^\d+]/g, '')}">☎ ${CONFIG.phone}</a>`,
   CONFIG.email && `<a class="btn btn-ghost magnetic" href="mailto:${CONFIG.email}">✉ ${CONFIG.email}</a>`,
 ].filter(Boolean).join('');
@@ -669,6 +837,7 @@ function setLang(lang) {
   curLang = lang;
   updateProjectTexts();
   buildManifesto(lang);
+  if (typeof aiRun !== 'undefined' && aiBody && aiBody.children.length) aiPlay();
   try { localStorage.setItem('nl-lang', lang); } catch (e) {}
   ScrollTrigger.refresh();
 }

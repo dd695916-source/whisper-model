@@ -103,9 +103,14 @@ const isMobile = matchMedia('(max-width: 900px)').matches;
    THREE — morphing golden particle field
    ============================================================ */
 const canvas = document.getElementById('gl');
-const renderer = new THREE.WebGLRenderer({ canvas, antialias: false, alpha: true, powerPreference: 'high-performance' });
+let renderer = null;
+try {
+  renderer = new THREE.WebGLRenderer({ canvas, antialias: false, alpha: true, powerPreference: 'high-performance' });
+} catch (err) {
+  document.documentElement.classList.add('no-gl'); // site keeps working without 3D
+}
 const DPR = Math.min(devicePixelRatio, isMobile ? 1.5 : 2);
-renderer.setPixelRatio(DPR);
+renderer && renderer.setPixelRatio(DPR);
 const scene = new THREE.Scene();
 const camera = new THREE.PerspectiveCamera(55, innerWidth / innerHeight, 0.1, 100);
 camera.position.set(0, 0, 9);
@@ -260,7 +265,7 @@ const lines = new THREE.LineSegments(lineGeo, new THREE.LineBasicMaterial({ colo
 group.add(lines);
 
 function resize() {
-  renderer.setSize(innerWidth, innerHeight, false);
+  renderer && renderer.setSize(innerWidth, innerHeight, false);
   camera.aspect = innerWidth / innerHeight;
   camera.position.z = camera.aspect < 0.8 ? 14 : 9;
   camera.updateProjectionMatrix();
@@ -277,23 +282,48 @@ function currentShape() {
   }
   return shapeIdx;
 }
-addEventListener('pointermove', e => { mouseX = e.clientX / innerWidth - 0.5; mouseY = e.clientY / innerHeight - 0.5; });
+let lastMove = -10;
+const canHover = matchMedia('(hover:hover)').matches;
+addEventListener('pointermove', e => { mouseX = e.clientX / innerWidth - 0.5; mouseY = e.clientY / innerHeight - 0.5; lastMove = performance.now() / 1000; });
+const _o = new THREE.Vector3(), _d = new THREE.Vector3(), _tmp = new THREE.Vector3();
+const REPEL = 1.15;
 
+const contactTitle = document.querySelector('.contact-title');
 const clock = new THREE.Clock();
 let started = false;
 function tick() {
+  requestAnimationFrame(tick);
+  if (!renderer || document.hidden) return;
   const t = clock.getElapsedTime();
   mat.uniforms.uTime.value = t;
   const next = currentShape();
   if (next !== shapeIdx) shapeIdx = next;
   if (shapeIdx === 1) shapes[1] = shapeWave(t);
   const target = shapes[shapeIdx];
+  // mouse ray in the particle group's local space
+  const repel = canHover && started && performance.now() / 1000 - lastMove < 2.5;
+  if (repel) {
+    _o.copy(camera.position);
+    _d.set(smx * 2, -smy * 2, 0.5).unproject(camera);
+    group.worldToLocal(_o); group.worldToLocal(_d);
+    _d.sub(_o).normalize();
+  }
   if (started) {
     for (let i = 0; i < N * 3; i += 3) {
       const k = speed[i / 3];
       pos[i] += (target[i] - pos[i]) * k;
       pos[i + 1] += (target[i + 1] - pos[i + 1]) * k;
       pos[i + 2] += (target[i + 2] - pos[i + 2]) * k;
+      if (repel) {
+        const px = pos[i] - _o.x, py = pos[i + 1] - _o.y, pz = pos[i + 2] - _o.z;
+        const proj = px * _d.x + py * _d.y + pz * _d.z;
+        const qx = px - _d.x * proj, qy = py - _d.y * proj, qz = pz - _d.z * proj;
+        const dist = Math.sqrt(qx * qx + qy * qy + qz * qz);
+        if (dist < REPEL && dist > 1e-4) {
+          const f = (REPEL - dist) / dist * 0.35;
+          pos[i] += qx * f; pos[i + 1] += qy * f; pos[i + 2] += qz * f;
+        }
+      }
     }
     geo.attributes.position.needsUpdate = true;
   }
@@ -305,11 +335,20 @@ function tick() {
   if (shapeIdx === 4) group.rotation.y = Math.sin(t * 0.4) * 0.35 + smx * 0.6;
   mat.uniforms.uBoost.value += (Math.min(Math.abs(velocity) * 0.02, 0.8) - mat.uniforms.uBoost.value) * 0.1;
   lines.material.opacity += ((shapeIdx === 0 && started ? 0.12 : 0) - lines.material.opacity) * 0.05;
-  const dimT = [0.75, 0.9, 0.42, 0.7, 1][shapeIdx];
+  const dimT = [0.75, 0.9, 0.42, 0.7, camera.aspect < 0.8 ? 0.3 : 0.4][shapeIdx];
   mat.uniforms.uDim.value += (dimT - mat.uniforms.uDim.value) * 0.05;
   velocity *= 0.92;
+  // contact: shrink the logo and lift it above the headline
+  const halfH = Math.tan(THREE.MathUtils.degToRad(camera.fov / 2)) * camera.position.z;
+  let gy = 0, gs = 1;
+  if (shapeIdx === 4) {
+    const r = contactTitle.getBoundingClientRect();
+    gy = (0.5 - (r.top + r.height / 2) / innerHeight) * 2 * halfH; // logo follows the headline as a watermark
+    gs = camera.aspect < 0.8 ? 0.95 : 0.8;
+  }
+  group.position.y += (gy - group.position.y) * 0.06;
+  group.scale.setScalar(group.scale.x + (gs - group.scale.x) * 0.06);
   renderer.render(scene, camera);
-  requestAnimationFrame(tick);
 }
 requestAnimationFrame(tick);
 
@@ -327,11 +366,39 @@ if (!reduceMotion) {
   addEventListener('scroll', () => { velocity = 10; });
 }
 document.querySelectorAll('a[href^="#"]').forEach(a => a.addEventListener('click', e => {
-  const id = a.getAttribute('href'); if (id.length < 2 && id !== '#') return;
-  const el = id === '#top' ? 0 : document.querySelector(id); if (el === null) return;
+  const id = a.getAttribute('href');
+  let el = 0;
+  if (id !== '#' && id !== '#top') { try { el = document.querySelector(id); } catch (err) { return; } if (!el) return; }
+  closeMenu();
   e.preventDefault();
   lenis ? lenis.scrollTo(el, { duration: 1.6 }) : (el === 0 ? scrollTo(0, 0) : el.scrollIntoView({ behavior: 'smooth' }));
 }));
+
+// mobile menu
+const burger = document.querySelector('.burger');
+function closeMenu() { document.body.classList.remove('menu-open'); burger && burger.setAttribute('aria-expanded', 'false'); lenis && lenis.start(); }
+burger && burger.addEventListener('click', () => {
+  const open = !document.body.classList.contains('menu-open');
+  document.body.classList.toggle('menu-open', open);
+  burger.setAttribute('aria-expanded', String(open));
+  open ? lenis && lenis.stop() : lenis && lenis.start();
+});
+addEventListener('keydown', e => { if (e.key === 'Escape') closeMenu(); });
+
+// scroll progress
+gsap.to('.progress', { scaleX: 1, ease: 'none', scrollTrigger: { start: 0, end: 'max', scrub: 0.3 } });
+
+// fit phone mockups to the available height
+function fitPhones() {
+  document.querySelectorAll('.stage').forEach(st => {
+    const ph = st.querySelector('.phone'); if (!ph) return;
+    const sc = Math.min(1, (st.clientHeight - 10) / ph.offsetHeight);
+    st.style.setProperty('--ps', Math.max(sc, 0.5).toFixed(3));
+  });
+}
+fitPhones();
+addEventListener('resize', fitPhones);
+ScrollTrigger.addEventListener('refresh', fitPhones);
 
 // nav
 ScrollTrigger.create({ start: 80, onUpdate: s => document.querySelector('.nav').classList.toggle('solid', s.scroll() > 80) });

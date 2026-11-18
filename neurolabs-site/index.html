@@ -8,8 +8,18 @@
 <meta name="theme-color" content="#04120f">
 <meta property="og:title" content="NeuroLabs — Mobile apps, Web & AI">
 <meta property="og:description" content="From idea to launch — fast, smart, reliable.">
-<meta property="og:image" content="assets/neurolabs-logo-512.png">
-<link rel="icon" href="assets/neurolabs-logo-512.png">
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://neurolabs.uz/">
+<meta property="og:image" content="https://neurolabs.uz/og-cover.jpg">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="675">
+<meta name="twitter:card" content="summary_large_image">
+<link rel="canonical" href="https://neurolabs.uz/">
+<link rel="icon" type="image/png" sizes="32x32" href="/favicon-32.png">
+<link rel="apple-touch-icon" href="/apple-touch-icon.png">
+<script type="application/ld+json">
+{"@context":"https://schema.org","@type":"Organization","name":"NeuroLabs","alternateName":"NeuroLabs by Qayo Tech","url":"https://neurolabs.uz/","logo":"https://neurolabs.uz/logo-512.png","description":"Mobile apps, websites and AI solutions. From idea to launch."}
+</script>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet">
@@ -26,6 +36,7 @@
   <div class="ld-pct"><span id="ldNum">0</span>%</div>
 </div>
 
+<div class="progress"></div>
 <canvas id="gl"></canvas>
 <div class="vignette"></div>
 <div class="grain"></div>
@@ -47,8 +58,16 @@
       <button data-lang="en">EN</button><button data-lang="ru">RU</button><button data-lang="uz">UZ</button>
     </div>
     <a href="#contact" class="btn btn-sm" data-i18n="nav.cta">Start a project</a>
+    <button class="burger" aria-label="Menu" aria-expanded="false" aria-controls="mmenu"><i></i><i></i></button>
   </div>
 </header>
+
+<div class="mmenu" id="mmenu">
+  <a href="#services" data-i18n="nav.services">Services</a>
+  <a href="#work" data-i18n="nav.work">Work</a>
+  <a href="#process" data-i18n="nav.process">Process</a>
+  <a href="#contact" class="gold" data-i18n="nav.cta">Start a project</a>
+</div>
 
 <main id="top">
 

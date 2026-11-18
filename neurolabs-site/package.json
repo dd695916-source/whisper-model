@@ -9,7 +9,8 @@
     "dev:api": "wrangler pages dev public --port 8788 --kv PROJECTS_KV --r2 MEDIA --compatibility-date 2024-11-01 --persist-to .wrangler/state --log-level warn",
     "build": "vite build",
     "preview": "vite build && wrangler pages dev dist --port 8788 --kv PROJECTS_KV --r2 MEDIA --compatibility-date 2024-11-01 --persist-to .wrangler/state",
-    "deploy": "vite build && wrangler pages deploy dist --project-name neurolabs"
+    "deploy": "vite build && wrangler pages deploy dist --project-name neurolabs",
+    "start": "node server/server.js"
   },
   "devDependencies": {
     "concurrently": "9.1.2",
@@ -20,5 +21,8 @@
     "gsap": "3.12.5",
     "lenis": "1.1.13",
     "three": "0.160.0"
+  },
+  "engines": {
+    "node": ">=18"
   }
 }

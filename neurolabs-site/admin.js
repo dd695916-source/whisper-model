@@ -251,8 +251,8 @@ async function upload(files) {
     if (!/^image\/(png|jpeg|webp)$/.test(f.type)) { toast(`${f.name}: нужен PNG, JPG или WEBP`, true); continue; }
     const ph = document.createElement('div'); ph.className = 'shot loading'; ph.textContent = 'Загрузка…'; $('#shots').appendChild(ph);
     try {
-      const fd = new FormData(); fd.append('file', await prepare(f));
-      const d = await api('/api/upload', { method: 'POST', body: fd });
+      const file = await prepare(f);
+      const d = await api('/api/upload', { method: 'POST', headers: { 'content-type': file.type }, body: file });
       p.screenshots.push(d.url); setDirty();
     } catch (err) { toast(err.message, true); }
     renderShots(); renderList();

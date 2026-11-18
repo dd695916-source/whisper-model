@@ -47,5 +47,16 @@ ADMIN_PASSWORD=neurolabs-admin
 
 Вместо подключения к Git можно публиковать из терминала: `npx wrangler login`, затем `npm run deploy`. Шаги 3–6 всё равно делаются в панели.
 
+## Свой сервер (VPS) вместо Cloudflare
+Серверу нужен только Node.js 18 или новее. Файл `server/server.js` отдаёт собранный сайт и обслуживает API админки. Проекты хранятся в `data/projects.json`, картинки в `data/uploads/`.
+
+```bash
+npm run build                                       # собрать dist/
+echo "ADMIN_PASSWORD=надёжный-пароль" > .env       # пароль админки
+echo "PORT=3000" >> .env
+npm start                                           # http://127.0.0.1:3000
+```
+Перед сервером ставится nginx с HTTPS: он проксирует запросы на `127.0.0.1:3000`.
+
 ## Контакты
 Telegram (@jorayevma) и телефон (+998 20 029 9898) задаются в начале `main.js`, в блоке `CONFIG`. Там же можно добавить почту.

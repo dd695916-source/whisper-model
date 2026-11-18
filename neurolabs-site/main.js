@@ -1,4 +1,7 @@
-import * as THREE from './vendor/three.module.min.js';
+import * as THREE from 'three';
+import gsap from 'gsap';
+import { ScrollTrigger } from 'gsap/ScrollTrigger';
+import Lenis from 'lenis';
 
 /* ============================================================
    CONFIG — замените контакты на свои

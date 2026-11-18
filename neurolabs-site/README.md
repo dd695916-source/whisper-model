@@ -1,17 +1,31 @@
 # NeuroLabs — сайт
 
-Статический сайт: `index.html`, `style.css`, `main.js` и библиотеки в `vendor/`. Сборка не нужна.
+HTML + CSS + JavaScript, сборка через Vite. Библиотеки: Three.js, GSAP (ScrollTrigger), Lenis.
+
+## Запуск на Mac
+Нужен Node.js 18+ (`brew install node` или https://nodejs.org).
+
+```bash
+cd neurolabs-site
+npm install      # один раз
+npm run dev      # запустит сайт и откроет его в браузере (http://localhost:5173)
+```
 
 ## Контакты
-Откройте `main.js` и в самом верху замените значения в `CONFIG`: Telegram, почту и телефон.
+В начале `main.js` замените значения в `CONFIG`: Telegram, почту и телефон.
 
-## Локальный просмотр
+## Сборка для публикации
+```bash
+npm run build    # готовый сайт появится в папке dist/
+npm run preview  # посмотреть собранную версию
 ```
-python3 -m http.server 8000
-```
-Затем откройте http://localhost:8000. Если открыть `index.html` двойным кликом, работать не будет: модулям нужен сервер.
 
 ## Деплой на Cloudflare Pages (neurolabs.uz)
-1. Cloudflare → Workers & Pages → Create → Pages → Upload assets.
-2. Перетащите папку `neurolabs-site` целиком (или распакованный архив).
-3. После деплоя: Custom domains → добавьте `neurolabs.uz` и `www.neurolabs.uz`.
+**Вариант А, вручную:** `npm run build`, затем Cloudflare → Workers & Pages → Create → Pages → Upload assets → перетащите папку `dist`.
+
+**Вариант Б, через GitHub (автодеплой):** Create → Pages → Connect to Git → выберите репозиторий и укажите:
+- Build command: `npm run build`
+- Build output directory: `dist`
+- Root directory: `neurolabs-site`
+
+Затем Custom domains → добавьте `neurolabs.uz` и `www.neurolabs.uz`.

@@ -29,11 +29,12 @@ a{color:inherit;text-decoration:none}
 #gl{position:fixed;inset:0;width:100%;height:100%;z-index:0;pointer-events:none}
 .vignette{position:fixed;inset:0;pointer-events:none;z-index:1;
   background:radial-gradient(ellipse at center,transparent 45%,rgba(2,8,7,.75) 100%)}
-.grain{position:fixed;inset:-50%;pointer-events:none;z-index:2;opacity:.06;
+.grain{position:fixed;inset:0;background-size:160px 160px;pointer-events:none;z-index:2;opacity:.06;
   background-image:url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='160' height='160'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='3'/></filter><rect width='100%' height='100%' filter='url(%23n)'/></svg>");
-  animation:grain 1s steps(6) infinite}
-@keyframes grain{0%{transform:translate(0,0)}25%{transform:translate(-4%,3%)}50%{transform:translate(3%,-2%)}75%{transform:translate(-2%,-4%)}100%{transform:translate(0,0)}}
+  animation:grain 1s steps(6) infinite;will-change:background-position}
+@keyframes grain{0%{background-position:0 0}25%{background-position:-37px 23px}50%{background-position:29px -17px}75%{background-position:-13px -41px}100%{background-position:0 0}}
 main,.foot{position:relative;z-index:3}
+main{overflow-x:clip}
 
 /* cursor */
 .cursor{position:fixed;left:0;top:0;width:34px;height:34px;margin:-17px 0 0 -17px;border:1.5px solid var(--gold);
@@ -50,7 +51,7 @@ main,.foot{position:relative;z-index:3}
 .ld-pct{font-family:'JetBrains Mono',monospace;color:var(--gold3);letter-spacing:4px;font-size:14px}
 
 /* nav */
-.nav{position:fixed;top:0;left:0;right:0;z-index:50;display:flex;align-items:center;justify-content:space-between;
+.nav{position:fixed;top:0;left:0;right:0;z-index:50;padding-top:max(18px,env(safe-area-inset-top)) !important;display:flex;align-items:center;justify-content:space-between;
   padding:18px var(--pad);transition:background .4s,backdrop-filter .4s,padding .4s}
 .nav.solid{background:rgba(4,18,15,.6);backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px);padding-top:12px;padding-bottom:12px;border-bottom:1px solid var(--line)}
 .brand{display:flex;align-items:center;gap:10px;font-weight:800;font-size:20px;letter-spacing:-.5px}
@@ -77,12 +78,12 @@ main,.foot{position:relative;z-index:3}
 /* hero */
 .hero{min-height:100vh;min-height:100svh;display:flex;align-items:center;justify-content:center;text-align:center;padding:120px var(--pad) 80px;position:relative}
 .hero-inner{max-width:1100px;perspective:900px;position:relative}
-.hero-inner::before{content:"";position:absolute;inset:-10% -15%;z-index:-1;background:radial-gradient(closest-side,rgba(4,18,15,.7),transparent);pointer-events:none}
+.hero-inner::before{content:"";position:absolute;inset:-10% 0;z-index:-1;background:radial-gradient(closest-side,rgba(4,18,15,.7),transparent);pointer-events:none}
 .eyebrow{display:inline-flex;align-items:center;gap:10px;font-size:14px;font-weight:600;letter-spacing:2px;text-transform:uppercase;color:var(--gold3);
   padding:9px 18px;border:1px solid var(--line);border-radius:40px;background:rgba(4,18,15,.4);backdrop-filter:blur(6px)}
 .dot{width:8px;height:8px;border-radius:50%;background:var(--gold);box-shadow:0 0 12px var(--gold);animation:pulse 2s infinite}
 @keyframes pulse{50%{opacity:.35}}
-.hero-title{font-size:clamp(64px,15vw,220px);font-weight:900;letter-spacing:-.055em;line-height:.9;margin:28px 0 26px;
+.hero-title{font-size:clamp(46px,min(15vw,24vh),220px);font-weight:900;letter-spacing:-.055em;line-height:.9;margin:28px 0 26px;
   transform-style:preserve-3d;text-shadow:0 20px 80px rgba(0,0,0,.4)}
 .hero-title{white-space:nowrap}
 .hero-title .split{display:inline-block}
@@ -338,6 +339,7 @@ button.btn{border:0;cursor:pointer;font-family:inherit}
   background:linear-gradient(150deg,#123f37 0%,#0a2722 55%,#071b18 100%);border:1px solid rgba(233,196,106,.35);
   box-shadow:0 -10px 60px rgba(0,0,0,.45),inset 0 1px 0 rgba(255,255,255,.06);overflow:hidden}
 .scard:nth-child(1){--i:0}.scard:nth-child(2){--i:1}.scard:nth-child(3){--i:2}.scard:nth-child(4){--i:3;margin-bottom:0}
+.scard::before{content:"";position:absolute;inset:0;background:#020807;opacity:var(--dim,0);pointer-events:none;z-index:2;border-radius:inherit}
 .scard::after{content:"";position:absolute;right:-20%;top:-30%;width:70%;height:120%;background:radial-gradient(closest-side,rgba(233,196,106,.16),transparent);pointer-events:none}
 .sc-n{font:600 16px 'JetBrains Mono',monospace;color:var(--gold);padding:6px 12px;border:1px solid var(--line);border-radius:20px}
 .scard h3{font-size:clamp(38px,5.4vw,84px);font-weight:900;letter-spacing:-.045em;line-height:.95;margin:24px 0 20px}
@@ -395,4 +397,56 @@ button.btn{border:0;cursor:pointer;font-family:inherit}
   .ai-msg{font-size:14px}
   .sphere span{font-size:13px;padding:6px 11px}
   .sphere-core{width:84px;height:84px;margin:-42px;font-size:26px}
+}
+
+.mlang{display:none}
+
+/* ---------- phones ---------- */
+@media (max-width:900px){
+  .grain{display:none}
+  .vignette{background:radial-gradient(ellipse at center,transparent 55%,rgba(2,8,7,.6) 100%)}
+  .card,.fc,.ai-win{backdrop-filter:none;-webkit-backdrop-filter:none}
+  .card{background:rgba(10,40,35,.88)}
+  .ai-win{background:rgba(7,27,24,.96)}
+  .nav{padding-left:16px;padding-right:16px}
+  .lang button{padding:9px 12px;font-size:13px}
+  .brand{padding:8px 0}
+  .sec-head,.work-head{gap:14px;margin-bottom:36px}
+  .services,.why,.process,.techs{padding-top:10vh;padding-bottom:6vh}
+  .manifesto{min-height:100svh;padding:10vh 20px}
+  .hero{padding-top:110px}
+  .hero-cta .btn{min-width:220px}
+  .btn{min-height:48px}
+  .mmenu{padding-bottom:env(safe-area-inset-bottom)}
+  .mmenu .mlang{display:flex;align-self:flex-start;margin-top:26px}
+  .mmenu .mlang button{padding:10px 18px;font-size:15px}
+  .scard p{font-size:15.5px}
+  .contact{padding-bottom:calc(12vh + env(safe-area-inset-bottom))}
+  .foot{padding-bottom:calc(28px + env(safe-area-inset-bottom))}
+}
+/* small phones: language moves into the menu so the header never overflows */
+@media (max-width:480px){
+  .nav-right>.lang{display:none}
+}
+/* phones in landscape */
+@media (max-width:950px) and (orientation:landscape) and (max-height:520px){
+  .panel{display:grid !important;grid-template-columns:1fr 1fr;grid-template-rows:100%;padding:80px 6vw 16px;text-align:left;gap:24px}
+  .panel .tags,.panel p{display:none}
+  .panel .p-actions{justify-content:flex-start}
+  .panel-cta{grid-template-columns:1fr;grid-template-rows:auto auto;text-align:center;padding-top:70px}
+  .work-head{top:70px}
+  .scard{min-height:0;height:auto;top:70px;grid-template-columns:1fr auto;padding:24px 28px;margin-bottom:6vh}
+  .sc-vis{order:0}
+  .sc-vis svg{width:90px}
+  .scard h3{font-size:34px;margin:10px 0 8px}
+  .ai-body{height:230px}
+  .sphere{width:min(420px,70vh);height:min(420px,70vh)}
+  .hero{padding-top:80px;padding-bottom:40px}
+  .hero-title{margin:14px 0 12px}
+  .hero-cta{margin-top:20px}
+  .scroll-hint{display:none}
+  .mmenu a{font-size:30px}
+}
+@media (max-width:950px) and (orientation:landscape) and (max-height:520px) and (min-width:481px){
+  .nav-right>.lang{display:flex}
 }

@@ -152,13 +152,14 @@ try {
 } catch (err) {
   document.documentElement.classList.add('no-gl'); // site keeps working without 3D
 }
-const DPR = Math.min(devicePixelRatio, isMobile ? 1.5 : 2);
+const lowEnd = (navigator.hardwareConcurrency || 8) <= 4 || (navigator.deviceMemory || 8) <= 3;
+let DPR = Math.min(devicePixelRatio, isMobile ? (lowEnd ? 1 : 1.35) : 2);
 renderer && renderer.setPixelRatio(DPR);
 const scene = new THREE.Scene();
 const camera = new THREE.PerspectiveCamera(55, innerWidth / innerHeight, 0.1, 100);
 camera.position.set(0, 0, 9);
 
-const N = isMobile ? 4500 : 9000;
+const N = isMobile ? (lowEnd ? 2200 : 3400) : 9000;
 const rnd = (a, b) => a + Math.random() * (b - a);
 const gauss = () => (Math.random() + Math.random() + Math.random() - 1.5) / 1.5;
 
@@ -322,7 +323,7 @@ scene.add(group);
 const lineGeo = new THREE.BufferGeometry();
 {
   const s = shapes[0], L = [];
-  const pick = isMobile ? 500 : 1000;
+  const pick = isMobile ? 0 : 1000; // no connecting lines on phones
   for (let k = 0; k < pick; k++) {
     const i = Math.floor(Math.random() * N), j = (i + 1 + Math.floor(Math.random() * 40)) % N;
     const dx = s[i*3]-s[j*3], dy = s[i*3+1]-s[j*3+1], dz = s[i*3+2]-s[j*3+2];
@@ -362,9 +363,24 @@ const REPEL = 1.15;
 const contactTitle = document.querySelector('.contact-title');
 const clock = new THREE.Clock();
 let started = false;
+let perfFrames = 0, perfStart = 0, perfDone = false, lastT = 0;
+function adaptQuality(now) {
+  if (perfDone || !started) return;
+  if (!perfStart) { perfStart = now; return; }
+  perfFrames++;
+  if (now - perfStart > 2500) {
+    perfDone = true;
+    const fps = perfFrames / ((now - perfStart) / 1000);
+    if (fps < 40 && renderer) {
+      geo.setDrawRange(0, Math.floor(N * 0.55));
+      DPR = 1; renderer.setPixelRatio(1); mat.uniforms.uPR.value = 1; resize();
+    }
+  }
+}
 function tick() {
   requestAnimationFrame(tick);
   if (!renderer || document.hidden) return;
+  adaptQuality(performance.now());
   const t = clock.getElapsedTime();
   mat.uniforms.uTime.value = t;
   const next = currentShape();
@@ -499,7 +515,7 @@ ScrollTrigger.create({ trigger: '.hero', start: 'top top', end: 'bottom top', on
 // hero scroll-out: 3D push into depth
 gsap.to('.hero-inner', {
   scrollTrigger: { trigger: '.hero', start: 'top top', end: 'bottom top', scrub: 1 },
-  z: 300, rotateX: 18, opacity: 0, filter: 'blur(8px)', ease: 'none', transformPerspective: 900,
+  z: 300, rotateX: 18, opacity: 0, ...(isMobile ? {} : { filter: 'blur(8px)' }), ease: 'none', transformPerspective: 900,
 });
 
 gsap.to('.scroll-hint', { scrollTrigger: { trigger: '.hero', start: 'top top', end: '20% top', scrub: true }, opacity: 0 });
@@ -678,7 +694,8 @@ const hTween = gsap.to(track, {
 });
 gsap.utils.toArray('.panel').forEach(p => {
   const ph = p.querySelector('.phone'), txt = p.querySelector('.panel-text') || p;
-  if (ph) gsap.fromTo(ph, { rotateY: 55, rotateX: 12, rotateZ: -6, z: -200 }, {
+  const k3 = isMobile ? 0.5 : 1;
+  if (ph) gsap.fromTo(ph, { rotateY: 55 * k3, rotateX: 12 * k3, rotateZ: -6 * k3, z: -200 * k3 }, {
     rotateY: -40, rotateX: -6, rotateZ: 4, z: 0, ease: 'none',
     scrollTrigger: { trigger: p, containerAnimation: hTween, start: 'left right', end: 'right left', scrub: true },
   });
@@ -698,7 +715,7 @@ scards.forEach((card, i) => {
   const next = scards[i + 1]; if (!next) return;
   gsap.to(card, {
     scrollTrigger: { trigger: next, start: 'top bottom', end: 'top 20%', scrub: 1.2 },
-    scale: 0.9, rotateX: -12, filter: 'brightness(.45)', transformPerspective: 1600, ease: 'none',
+    scale: 0.9, rotateX: isMobile ? -6 : -12, '--dim': 0.55, transformPerspective: 1600, ease: 'none',
   });
 });
 
@@ -714,7 +731,7 @@ if (matchMedia('(hover:hover)').matches) {
 }
 gsap.from('.ai-win', {
   scrollTrigger: { trigger: '.aidemo', start: 'top 85%', end: 'top 30%', scrub: 1.2 },
-  rotateY: -35, rotateX: 15, x: 120, z: -300, opacity: 0, transformPerspective: 1400,
+  rotateY: isMobile ? -15 : -35, rotateX: isMobile ? 8 : 15, x: isMobile ? 30 : 120, z: isMobile ? -120 : -300, opacity: 0, transformPerspective: 1400,
 });
 
 // AI demo — scripted chat that types itself
@@ -789,7 +806,7 @@ ScrollTrigger.create({ trigger: '.aidemo', start: 'top 60%', onEnter: () => aiPl
 gsap.to('.steps-line i', { scaleY: 1, ease: 'none', scrollTrigger: { trigger: '.steps', start: 'top 60%', end: 'bottom 60%', scrub: true } });
 gsap.utils.toArray('.step').forEach(s => gsap.from(s, {
   scrollTrigger: { trigger: s, start: 'top 85%', end: 'top 55%', scrub: 1 },
-  x: -80, rotateY: 30, opacity: 0, transformPerspective: 1000, transformOrigin: 'left center',
+  x: isMobile ? -24 : -80, rotateY: isMobile ? 0 : 30, opacity: 0, transformPerspective: 1000, transformOrigin: 'left center',
 }));
 
 // CONTACT — big title 3D

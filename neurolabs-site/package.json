@@ -10,7 +10,8 @@
     "build": "vite build",
     "preview": "vite build && wrangler pages dev dist --port 8788 --kv PROJECTS_KV --r2 MEDIA --compatibility-date 2024-11-01 --persist-to .wrangler/state",
     "deploy": "vite build && wrangler pages deploy dist --project-name neurolabs",
-    "start": "node server/server.js"
+    "start": "node server/server.js",
+    "deploy:vps": "bash deploy/vps.sh"
   },
   "devDependencies": {
     "concurrently": "9.1.2",

@@ -8,9 +8,9 @@ import { PROJECTS } from './projects.js';
    CONFIG — замените контакты на свои
    ============================================================ */
 const CONFIG = {
-  telegram: 'https://t.me/your_username',   // ← ваш Telegram
-  email: 'hello@neurolabs.uz',              // ← ваша почта
-  phone: '+998 00 000 00 00',               // ← ваш телефон
+  telegram: 'jorayevma',            // Telegram username (без @)
+  phone: '+998 20 029 9898',        // телефон
+  email: '',                        // почта — оставьте пустой, чтобы скрыть кнопку
 };
 
 /* ============================================================
@@ -636,10 +636,11 @@ gsap.from('.contact-btns > *', {
 
 /* contacts */
 const btns = document.getElementById('contactBtns');
-btns.innerHTML = `
-  <a class="btn magnetic" href="${CONFIG.telegram}" target="_blank" rel="noopener">✈ Telegram</a>
-  <a class="btn btn-ghost magnetic" href="mailto:${CONFIG.email}">✉ ${CONFIG.email}</a>
-  <a class="btn btn-ghost magnetic" href="tel:${CONFIG.phone.replace(/\s/g, '')}">☎ ${CONFIG.phone}</a>`;
+btns.innerHTML = [
+  CONFIG.telegram && `<a class="btn magnetic" href="https://t.me/${CONFIG.telegram}" target="_blank" rel="noopener">✈ @${CONFIG.telegram}</a>`,
+  CONFIG.phone && `<a class="btn btn-ghost magnetic" href="tel:${CONFIG.phone.replace(/[^\d+]/g, '')}">☎ ${CONFIG.phone}</a>`,
+  CONFIG.email && `<a class="btn btn-ghost magnetic" href="mailto:${CONFIG.email}">✉ ${CONFIG.email}</a>`,
+].filter(Boolean).join('');
 document.getElementById('yr').textContent = new Date().getFullYear();
 
 /* magnetic buttons + cursor */

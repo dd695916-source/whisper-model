@@ -48,4 +48,4 @@ ADMIN_PASSWORD=neurolabs-admin
 Вместо подключения к Git можно публиковать из терминала: `npx wrangler login`, затем `npm run deploy`. Шаги 3–6 всё равно делаются в панели.
 
 ## Контакты
-В начале `main.js` замените значения в `CONFIG`: Telegram, почту и телефон.
+Telegram (@jorayevma) и телефон (+998 20 029 9898) задаются в начале `main.js`, в блоке `CONFIG`. Там же можно добавить почту.

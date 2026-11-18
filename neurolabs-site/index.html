@@ -158,69 +158,7 @@
     </div>
     <div class="work-track">
 
-      <div class="panel">
-        <div class="panel-text">
-          <span class="p-cat" data-i18n="work.1c">Food delivery · Mobile</span>
-          <h3>Gilos</h3>
-          <p data-i18n="work.1d">A fast food & grocery delivery app: restaurants, live order tracking and payments in a few taps.</p>
-          <div class="tags"><span>Flutter</span><span>Maps</span><span>Payments</span></div>
-        </div>
-        <div class="stage"><div class="phone">
-          <div class="scr light">
-            <div class="notch"></div>
-            <div class="ui-h">Yetkazib berish</div>
-            <div class="ui-s">Toshkent · 25–30 min</div>
-            <div class="ui-search">🔍 Taom qidirish</div>
-            <div class="ui-cats"><i class="on">Hammasi</i><i>Pizza</i><i>Burger</i></div>
-            <div class="ui-card"><b style="--a:#f6c26b;--b:#e07a3f"></b><div><strong>Lavash Grill</strong><small>★ 4.9 · 20 min</small></div><em>32k</em></div>
-            <div class="ui-card"><b style="--a:#9ad48a;--b:#3f8f5f"></b><div><strong>Green Bowl</strong><small>★ 4.8 · 15 min</small></div><em>45k</em></div>
-            <div class="ui-card"><b style="--a:#f3a6a0;--b:#c0505a"></b><div><strong>Pizza House</strong><small>★ 4.7 · 30 min</small></div><em>68k</em></div>
-            <div class="ui-cta">Buyurtma berish →</div>
-          </div>
-        </div></div>
-      </div>
-
-      <div class="panel">
-        <div class="panel-text">
-          <span class="p-cat" data-i18n="work.2c">Education · Community</span>
-          <h3>IlmFun</h3>
-          <p data-i18n="work.2d">A learning community with channels, voice rooms, video calls and file sharing — built for students.</p>
-          <div class="tags"><span>Realtime</span><span>Voice</span><span>Video</span></div>
-        </div>
-        <div class="stage"><div class="phone">
-          <div class="scr dark">
-            <div class="notch"></div>
-            <div class="ui-ch"># general</div>
-            <div class="ui-msg"><b></b><div><strong>Bekzod</strong><span>Darsdan keyin uchrashamizmi? 📚</span></div></div>
-            <div class="ui-msg"><b style="--a:#8fe3b6;--b:#1a5c50"></b><div><strong>Madina</strong><span>Ha! Fayllarni yubordim</span></div></div>
-            <div class="ui-file">📄 lecture-05.pdf <small>2.4 MB</small></div>
-            <div class="ui-msg"><b style="--a:#f3a6a0;--b:#7b2ff7"></b><div><strong>Aziz</strong><span>Voice room ochiq 🎧</span></div></div>
-            <div class="ui-voice"><i></i><i></i><i></i><i></i><i></i><i></i><i></i><span>3 online</span></div>
-            <div class="ui-input">Xabar yozing...</div>
-          </div>
-        </div></div>
-      </div>
-
-      <div class="panel">
-        <div class="panel-text">
-          <span class="p-cat" data-i18n="work.3c">Artificial Intelligence</span>
-          <h3>Neuro AI</h3>
-          <p data-i18n="work.3d">An AI assistant that understands speech, answers in Uzbek, Russian and English, and plugs into any business.</p>
-          <div class="tags"><span>LLM</span><span>Speech</span><span>API</span></div>
-        </div>
-        <div class="stage"><div class="phone">
-          <div class="scr dark">
-            <div class="notch"></div>
-            <div class="ui-ai-h"><b></b><div><strong>Neuro AI</strong><small>● online</small></div></div>
-            <div class="ui-bub in">Salom! Qanday yordam bera olaman? 👋</div>
-            <div class="ui-bub out">Ilova uchun dizayn kerak</div>
-            <div class="ui-bub in">Tayyor! 3 ta variant ✨</div>
-            <div class="ui-bub in grid"><i></i><i></i><i></i></div>
-            <div class="ui-bub out">Zo'r! 🔥</div>
-            <div class="ui-wave"><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i></div>
-          </div>
-        </div></div>
-      </div>
+      <!-- Project panels are generated from projects.js -->
 
       <div class="panel panel-cta">
         <h3 data-i18n="work.4t">Your project<br>could be next.</h3>
@@ -265,6 +203,67 @@
   </section>
 
 </main>
+
+<!-- Built-in phone screens for projects without screenshots (mock: "delivery" | "community" | "ai") -->
+<template id="mock-delivery">
+          <div class="scr light">
+            <div class="notch"></div>
+            <div class="ui-h">Yetkazib berish</div>
+            <div class="ui-s">Toshkent · 25–30 min</div>
+            <div class="ui-search">🔍 Taom qidirish</div>
+            <div class="ui-cats"><i class="on">Hammasi</i><i>Pizza</i><i>Burger</i></div>
+            <div class="ui-card"><b style="--a:#f6c26b;--b:#e07a3f"></b><div><strong>Lavash Grill</strong><small>★ 4.9 · 20 min</small></div><em>32k</em></div>
+            <div class="ui-card"><b style="--a:#9ad48a;--b:#3f8f5f"></b><div><strong>Green Bowl</strong><small>★ 4.8 · 15 min</small></div><em>45k</em></div>
+            <div class="ui-card"><b style="--a:#f3a6a0;--b:#c0505a"></b><div><strong>Pizza House</strong><small>★ 4.7 · 30 min</small></div><em>68k</em></div>
+            <div class="ui-cta">Buyurtma berish →</div>
+          </div>
+</template>
+<template id="mock-community">
+          <div class="scr dark">
+            <div class="notch"></div>
+            <div class="ui-ch"># general</div>
+            <div class="ui-msg"><b></b><div><strong>Bekzod</strong><span>Darsdan keyin uchrashamizmi? 📚</span></div></div>
+            <div class="ui-msg"><b style="--a:#8fe3b6;--b:#1a5c50"></b><div><strong>Madina</strong><span>Ha! Fayllarni yubordim</span></div></div>
+            <div class="ui-file">📄 lecture-05.pdf <small>2.4 MB</small></div>
+            <div class="ui-msg"><b style="--a:#f3a6a0;--b:#7b2ff7"></b><div><strong>Aziz</strong><span>Voice room ochiq 🎧</span></div></div>
+            <div class="ui-voice"><i></i><i></i><i></i><i></i><i></i><i></i><i></i><span>3 online</span></div>
+            <div class="ui-input">Xabar yozing...</div>
+          </div>
+</template>
+<template id="mock-ai">
+          <div class="scr dark">
+            <div class="notch"></div>
+            <div class="ui-ai-h"><b></b><div><strong>Neuro AI</strong><small>● online</small></div></div>
+            <div class="ui-bub in">Salom! Qanday yordam bera olaman? 👋</div>
+            <div class="ui-bub out">Ilova uchun dizayn kerak</div>
+            <div class="ui-bub in">Tayyor! 3 ta variant ✨</div>
+            <div class="ui-bub in grid"><i></i><i></i><i></i></div>
+            <div class="ui-bub out">Zo'r! 🔥</div>
+            <div class="ui-wave"><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i></div>
+          </div>
+</template>
+
+<!-- Project details modal -->
+<div class="pm" id="pm" role="dialog" aria-modal="true" aria-hidden="true" aria-labelledby="pmTitle">
+  <div class="pm-backdrop" data-close></div>
+  <div class="pm-sheet" data-lenis-prevent>
+    <button class="pm-close" data-close aria-label="Close">✕</button>
+    <div class="pm-grid">
+      <div class="pm-info">
+        <span class="p-cat" id="pmCat"></span>
+        <h2 id="pmTitle"></h2>
+        <div class="pm-meta" id="pmMeta"></div>
+        <p class="pm-desc" id="pmDesc"></p>
+        <h4 data-i18n="pm.features">Key features</h4>
+        <ul class="pm-feat" id="pmFeat"></ul>
+        <h4 data-i18n="pm.stack">Tech stack</h4>
+        <div class="tags" id="pmTags"></div>
+        <div class="pm-links" id="pmLinks"></div>
+      </div>
+      <div class="pm-media" id="pmMedia"></div>
+    </div>
+  </div>
+</div>
 
 <footer class="foot">
   <span>© <span id="yr"></span> NeuroLabs · by Qayo Tech</span>

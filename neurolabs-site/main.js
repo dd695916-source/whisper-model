@@ -2,6 +2,7 @@ import * as THREE from 'three';
 import gsap from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import Lenis from 'lenis';
+import { PROJECTS } from './projects.js';
 
 /* ============================================================
    CONFIG — замените контакты на свои
@@ -40,6 +41,8 @@ const T = {
     'proc.2t': 'Design', 'proc.2d': 'Prototypes and visual design you can click through before a line of code.',
     'proc.3t': 'Build', 'proc.3d': 'Agile sprints, weekly demos, clean scalable code and real testing.',
     'proc.4t': 'Launch & grow', 'proc.4d': 'App Store, Google Play, servers — and support as your product grows.',
+    'work.more': 'Details', 'link.googlePlay': 'Google Play', 'link.appStore': 'App Store', 'link.website': 'Website', 'link.telegram': 'Telegram',
+    'pm.features': 'Key features', 'pm.stack': 'Tech stack', 'pm.year': 'Year', 'pm.platforms': 'Platforms',
     'ct.eyebrow': "Let's build something great", 'ct.t1': 'Got an idea?', 'ct.t2': "Let's make it real.",
   },
   ru: {
@@ -66,6 +69,8 @@ const T = {
     'proc.2t': 'Дизайн', 'proc.2d': 'Кликабельные прототипы и дизайн — ещё до первой строчки кода.',
     'proc.3t': 'Разработка', 'proc.3d': 'Спринты, еженедельные демо, чистый масштабируемый код и тестирование.',
     'proc.4t': 'Запуск и рост', 'proc.4d': 'App Store, Google Play, серверы — и поддержка по мере роста продукта.',
+    'work.more': 'Подробнее', 'link.googlePlay': 'Google Play', 'link.appStore': 'App Store', 'link.website': 'Сайт', 'link.telegram': 'Telegram',
+    'pm.features': 'Возможности', 'pm.stack': 'Технологии', 'pm.year': 'Год', 'pm.platforms': 'Платформы',
     'ct.eyebrow': 'Давайте создадим что-то крутое', 'ct.t1': 'Есть идея?', 'ct.t2': 'Воплотим её.',
   },
   uz: {
@@ -92,6 +97,8 @@ const T = {
     'proc.2t': 'Dizayn', 'proc.2d': 'Bir qator kod yozilmasdan oldin bosib ko‘rish mumkin bo‘lgan prototiplar.',
     'proc.3t': 'Ishlab chiqish', 'proc.3d': 'Sprintlar, haftalik demo, toza va kengayadigan kod, real testlar.',
     'proc.4t': "Ishga tushirish va o'sish", 'proc.4d': "App Store, Google Play, serverlar — va mahsulot o'sishida qo'llab-quvvatlash.",
+    'work.more': 'Batafsil', 'link.googlePlay': 'Google Play', 'link.appStore': 'App Store', 'link.website': 'Veb-sayt', 'link.telegram': 'Telegram',
+    'pm.features': 'Imkoniyatlar', 'pm.stack': 'Texnologiyalar', 'pm.year': 'Yil', 'pm.platforms': 'Platformalar',
     'ct.eyebrow': 'Keling, zo‘r narsa yaratamiz', 'ct.t1': "G'oyangiz bormi?", 'ct.t2': 'Uni hayotga tatbiq etamiz.',
   },
 };
@@ -464,6 +471,115 @@ gsap.utils.toArray('.sec-title').forEach(t => gsap.from(t, {
   rotateX: -80, y: 80, opacity: 0, transformOrigin: '50% 100%', transformPerspective: 800,
 }));
 
+
+/* ============================================================
+   PROJECTS — rendered from projects.js
+   ============================================================ */
+let curLang = 'en';
+const tr = v => (v == null ? '' : typeof v === 'string' ? v : Array.isArray(v) ? v : (v[curLang] ?? v.en ?? Object.values(v)[0]));
+const esc = v => String(v).replace(/[&<>"']/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]));
+const LINK_ORDER = ['googlePlay', 'appStore', 'website', 'telegram'];
+const ICONS = {
+  googlePlay: '<svg viewBox="0 0 24 24"><path d="M4 3l10 9-10 9z"/><path d="M14 12l3-3 4 2.3c.8.5.8 1.4 0 1.9L17 15z"/></svg>',
+  appStore: '<svg viewBox="0 0 24 24"><path d="M16 3c0 2-1.5 3.6-3.4 3.5C12.5 4.6 14 3 16 3z"/><path d="M12.5 8c1 0 2-.7 3.3-.7 1.3 0 2.6.7 3.2 1.8-2.8 1.5-2.3 5.6.6 6.6-.6 1.8-2 4.3-3.4 4.3-1.1 0-1.6-.7-3-.7s-2 .7-3 .7C8.3 20 5 15.6 5 11.8 5 9 6.8 7.4 8.7 7.4c1.4 0 2.6.7 3.8.6z"/></svg>',
+  website: '<svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M3 12h18M12 3c3 3.2 3 14.8 0 18M12 3c-3 3.2-3 14.8 0 18"/></svg>',
+  telegram: '<svg viewBox="0 0 24 24"><path d="M21 4L3 11l6 2 2 6 3-4 5 4z"/><path d="M9 13l9-7"/></svg>',
+};
+function linksHTML(p, cls) {
+  return LINK_ORDER.filter(k => p.links && p.links[k]).map(k =>
+    `<a class="${cls} link-${k}" href="${esc(p.links[k])}" target="_blank" rel="noopener">${ICONS[k]}<span data-i18n="link.${k}">${esc(tr(T[curLang]['link.' + k]))}</span></a>`).join('');
+}
+function screenHTML(p, i = 0) {
+  if (p.screenshots && p.screenshots.length) {
+    return `<div class="scr shot"><img src="${esc(p.screenshots[i])}" alt="${esc(p.title)}" loading="lazy" decoding="async"></div>`;
+  }
+  const tpl = document.getElementById('mock-' + (p.mock || 'delivery'));
+  return tpl ? tpl.innerHTML : '<div class="scr dark"></div>';
+}
+function renderPanels() {
+  const html = PROJECTS.map(p => `
+    <div class="panel" data-pid="${esc(p.id)}">
+      <div class="panel-text">
+        <span class="p-cat" data-pf="category"></span>
+        <h3>${esc(p.title)}</h3>
+        <p data-pf="short"></p>
+        <div class="tags">${(p.tags || []).map(t => `<span>${esc(t)}</span>`).join('')}</div>
+        <div class="p-actions">
+          <button class="btn btn-sm" data-open="${esc(p.id)}"><span data-i18n="work.more">Details</span> →</button>
+          ${linksHTML(p, 'btn btn-ghost btn-sm')}
+        </div>
+      </div>
+      <div class="stage"><div class="phone" data-open="${esc(p.id)}" role="button" tabindex="0" aria-label="${esc(p.title)}">${screenHTML(p)}</div></div>
+    </div>`).join('');
+  document.querySelector('.panel-cta').insertAdjacentHTML('beforebegin', html);
+}
+function updateProjectTexts() {
+  document.querySelectorAll('.panel[data-pid]').forEach(el => {
+    const p = PROJECTS.find(x => x.id === el.dataset.pid); if (!p) return;
+    el.querySelectorAll('[data-pf]').forEach(f => { f.textContent = tr(p[f.dataset.pf]); });
+  });
+  if (openId) fillModal(PROJECTS.find(x => x.id === openId));
+}
+
+// modal
+const pm = document.getElementById('pm');
+let openId = null;
+function fillModal(p) {
+  document.getElementById('pmCat').textContent = tr(p.category);
+  document.getElementById('pmTitle').textContent = p.title;
+  const meta = [];
+  if (p.year) meta.push(`<span><small>${T[curLang]['pm.year']}</small>${esc(p.year)}</span>`);
+  if (p.platforms) meta.push(`<span><small>${T[curLang]['pm.platforms']}</small>${esc(p.platforms)}</span>`);
+  document.getElementById('pmMeta').innerHTML = meta.join('');
+  document.getElementById('pmDesc').textContent = tr(p.description) || tr(p.short);
+  const feats = tr(p.features) || [];
+  document.getElementById('pmFeat').innerHTML = feats.map(f => `<li>${esc(f)}</li>`).join('');
+  document.getElementById('pmFeat').previousElementSibling.style.display = feats.length ? '' : 'none';
+  document.getElementById('pmTags').innerHTML = (p.tags || []).map(t => `<span>${esc(t)}</span>`).join('');
+  document.getElementById('pmLinks').innerHTML = linksHTML(p, 'btn btn-sm');
+  const shots = p.screenshots && p.screenshots.length ? p.screenshots.map((_, i) => screenHTML(p, i)) : [screenHTML(p)];
+  document.getElementById('pmMedia').innerHTML = shots.map(s => `<div class="phone mini">${s}</div>`).join('');
+  pm.querySelectorAll('[data-i18n]').forEach(el => { const v = T[curLang][el.dataset.i18n]; if (v) el.textContent = v; });
+}
+function openProject(id, updateUrl = true) {
+  const p = PROJECTS.find(x => x.id === id); if (!p) return;
+  openId = id; fillModal(p);
+  pm.classList.add('open'); pm.setAttribute('aria-hidden', 'false');
+  document.body.classList.add('pm-open');
+  lenis && lenis.stop();
+  if (updateUrl) history.replaceState(null, '', '#project/' + id);
+  gsap.fromTo('.pm-sheet', { y: 80, rotateX: 12, opacity: 0, transformPerspective: 1200 }, { y: 0, rotateX: 0, opacity: 1, duration: 0.7, ease: 'expo.out' });
+  gsap.fromTo('.pm-media .phone', { rotateY: 40, opacity: 0, x: 60 }, { rotateY: -8, opacity: 1, x: 0, duration: 1, stagger: 0.08, ease: 'expo.out', delay: 0.1 });
+  gsap.fromTo('.pm-backdrop', { opacity: 0 }, { opacity: 1, duration: 0.4 });
+  setTimeout(() => pm.querySelector('.pm-close').focus(), 50);
+}
+function closeProject() {
+  if (!openId) return;
+  const id = openId; openId = null;
+  gsap.to('.pm-sheet', { y: 60, opacity: 0, duration: 0.35, ease: 'power2.in' });
+  gsap.to('.pm-backdrop', { opacity: 0, duration: 0.35, onComplete: () => {
+    pm.classList.remove('open'); pm.setAttribute('aria-hidden', 'true');
+    document.body.classList.remove('pm-open');
+    lenis && lenis.start();
+    const btn = document.querySelector(`.panel [data-open="${id}"]`); btn && btn.focus({ preventScroll: true });
+  } });
+  if (location.hash.startsWith('#project/')) history.replaceState(null, '', location.pathname + location.search);
+}
+document.addEventListener('click', e => {
+  const o = e.target.closest('[data-open]'); if (o) { openProject(o.dataset.open); return; }
+  if (e.target.closest('[data-close]')) closeProject();
+});
+document.addEventListener('keydown', e => {
+  if (e.key === 'Escape') closeProject();
+  if ((e.key === 'Enter' || e.key === ' ') && e.target.matches('.phone[data-open]')) { e.preventDefault(); openProject(e.target.dataset.open); }
+});
+function openFromHash() {
+  const m = location.hash.match(/^#project\/(.+)$/);
+  if (m) openProject(decodeURIComponent(m[1]), false); else closeProject();
+}
+addEventListener('hashchange', openFromHash);
+renderPanels();
+
 // WORK — pinned horizontal with rotating 3D phones
 const track = document.querySelector('.work-track');
 const hTween = gsap.to(track, {
@@ -530,6 +646,8 @@ function setLang(lang) {
     const v = T[lang][el.dataset.i18n]; if (v != null && el.dataset.i18n !== 'mani') el.innerHTML = v;
   });
   document.querySelectorAll('.lang button').forEach(b => b.classList.toggle('on', b.dataset.lang === lang));
+  curLang = lang;
+  updateProjectTexts();
   buildManifesto(lang);
   try { localStorage.setItem('nl-lang', lang); } catch (e) {}
   ScrollTrigger.refresh();
@@ -555,6 +673,7 @@ gsap.to(prog, {
         lenis && lenis.start();
         started = true;
         heroIntro();
+        openFromHash();
         ScrollTrigger.refresh();
       },
     });
